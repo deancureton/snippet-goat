@@ -50,17 +50,15 @@ def build_obsidian_snippets(snippets, verbatim_snippets, output_path):
         # json.dumps for safe string formatting
         trigger_str = json.dumps(s['trigger'])
         replacement_str = json.dumps(s['replacement'])
+        options_str = json.dumps(s['options_str'])
         description_str = json.dumps(s.get('description', ''))
 
         line_parts = [
             f"trigger: {trigger_str}",
             f"replacement: {replacement_str}",
+            f"options: {options_str}",
             f"description: {description_str}"
         ]
-
-        options_str = json.dumps(s['options_str'])
-        if s.get('options_str'):
-            line_parts.append(f"options: {options_str}")
 
         if 'priority' in s:
             line_parts.append(f"priority: {s['priority']}")
