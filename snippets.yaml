@@ -57,13 +57,19 @@ snippets:
   - trigger: "dm"
     replacement: "$$$1$$"
     description: "Display math mode"
+    target_platforms: [obsidian]
     options:
       text: true
       auto: true
-    platforms:
-      obsidian:
-        options:
-          word_boundary: true
+      word_boundary: true
+
+  - trigger: "dm"
+    replacement: "\\[\n$1\n\\]"
+    description: "Display math mode"
+    target_platforms: [vscode]
+    options:
+      text: true
+      auto: true
 
 # Extra symbol overrides
 
