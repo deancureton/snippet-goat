@@ -260,7 +260,7 @@ snippets:
 # General symbols (vscode only)
 
   - trigger: "({{GREEK}}|{{SYMBOL}}|{{SHORT_SYMBOL}})"
-    replacement: "\\``rv = m[1]`` "
+    replacement: "\\``rv = m[1]``"
     description: "Greek letter, symbol, or short symbol"
     target_platforms: [vscode]
     options:
