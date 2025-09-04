@@ -6,8 +6,8 @@
 # variables: <object> (Optional) A key-value store for variables that can be referenced in triggers and replacements using {{variable_name}}. The build script will substitute these variables. For Obsidian, it can substitute them with Obsidian's native `${VAR}` format.
 # 
 # snippets:
-#   - trigger: <string|regex> The text that activates the snippet.
-#     replacement: <string|javascript> The content to be inserted.
+#   - trigger: <string|regex> The text that activates the snippet. In single quotes to prevent escape characters.
+#     replacement: <string|javascript> The content to be inserted. In double quotes to allow for escape characters.
 #       - For simple text, just provide the string. Use $1, $2 for tab stops.
 #       - For dynamic/scripted snippets, provide the JavaScript code block.
 #         The script will be adapted for each platform by the build script.
@@ -47,14 +47,14 @@ snippets:
 
 # Triggering math mode
 
-  - trigger: "mk"
+  - trigger: 'mk'
     replacement: "$$1$"
     description: "Inline math mode"
     options:
       text: true
       auto: true
 
-  - trigger: "dm"
+  - trigger: 'dm'
     replacement: "$$$1$$"
     description: "Display math mode"
     target_platforms: [obsidian]
@@ -63,7 +63,7 @@ snippets:
       auto: true
       word_boundary: true
 
-  - trigger: "dm"
+  - trigger: 'dm'
     replacement: "\\[\n$1\n\\]"
     description: "Display math mode"
     target_platforms: [vscode]
@@ -73,7 +73,7 @@ snippets:
 
 # Extra symbol overrides
 
-  - trigger: "im"
+  - trigger: 'im'
     replacement: "\\im "
     description: "image"
     priority: -1
@@ -81,7 +81,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "int"
+  - trigger: 'int'
     replacement: "\\int "
     description: "integral"
     priority: -1
@@ -91,7 +91,7 @@ snippets:
 
 # Environments
 
-  - trigger: "beg"
+  - trigger: 'beg'
     replacement: "\\begin{$0}\n$1\n\\end{$0}"
     description: "Begin environment"
     target_platforms: [obsidian]
@@ -99,7 +99,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "(pmat|bmat|Bmat|vmat|Vmat)"
+  - trigger: '(pmat|bmat|Bmat|vmat|Vmat)'
     replacement: "\\begin{[[0]]rix}\n$0\n\\end{[[0]]rix}"
     description: "Matrix environment"
     target_platforms: [obsidian]
@@ -108,7 +108,7 @@ snippets:
       display_math: true
       auto: true
 
-  - trigger: "matrix"
+  - trigger: 'matrix'
     replacement: "\\begin{matrix}\n$0\n\\end{matrix}"
     description: "Matrix environment"
     target_platforms: [obsidian]
@@ -116,7 +116,7 @@ snippets:
       display_math: true
       auto: true
 
-  - trigger: "(pmat|bmat|Bmat|vmat|Vmat)"
+  - trigger: '(pmat|bmat|Bmat|vmat|Vmat)'
     replacement: "\\begin{[[0]]rix}$0\\end{[[0]]rix}"
     description: "Matrix environment"
     target_platforms: [obsidian]
@@ -125,7 +125,7 @@ snippets:
       inline_math: true
       auto: true
 
-  - trigger: "matrix"
+  - trigger: 'matrix'
     replacement: "\\begin{matrix}$0\\end{matrix}"
     description: "Matrix environment"
     target_platforms: [obsidian]
@@ -133,7 +133,7 @@ snippets:
       inline_math: true
       auto: true
 
-  - trigger: "case"
+  - trigger: 'case'
     replacement: "\\begin{cases}\n$0\n\\end{cases}"
     description: "Case environment"
     target_platforms: [obsidian]
@@ -141,7 +141,7 @@ snippets:
       math: true
       auto: true
       
-  - trigger: "align*"
+  - trigger: 'align*'
     replacement: "\\begin{align*}\n$0\n\\end{align*}"
     description: "Align environment"
     target_platforms: [obsidian]
@@ -149,7 +149,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "array"
+  - trigger: 'array'
     replacement: "\\begin{array}\n$0\n\\end{array}"
     description: "Array environment"
     target_platforms: [obsidian]
@@ -157,7 +157,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "box"
+  - trigger: 'box'
     replacement: |
       ``rv = '┌' + '─'.repeat(t[0].length + 2) + '┐'``
       │ $1 │
@@ -167,7 +167,7 @@ snippets:
     options:
       auto: true
 
-  - trigger: "table([1-9]{1}) ([1-9]{1})"
+  - trigger: 'table([1-9]{1}) ([1-9]{1})'
     replacement: |
       \begin{table}[H]
       	\centering
@@ -186,7 +186,7 @@ snippets:
       beginning_of_line: true
       auto: true
 
-  - trigger: "ary([1-9]{1}) ([1-9]{1})"
+  - trigger: 'ary([1-9]{1}) ([1-9]{1})'
     replacement: |
       \begin{array}{``let len = m[2]; let results = ""; for(var i=0; i<len; i++){ results += "c"} rv = results;``}
       ``let order = 1; let nrow = m[1]; let ncol = m[2]; for (var i=0; i<nrow-1; i++){ for(var j = 0;j <ncol-1;j++){ rv += `${snip.tabstop(order)} & `; order ++;} rv += ` ${snip.tabstop(order)} \\\\`+ `\\`+ `\n` + `	`; order ++;} for(var j = 0;j <ncol-1;j++){ rv += `${snip.tabstop(order)} & `; order ++;} rv += ` ${snip.tabstop(order)} \\\\`+ `\\`;``
@@ -199,7 +199,7 @@ snippets:
       beginning_of_line: true
       auto: true
 
-  - trigger: "(b|p)mat([1-9]{1}) ([1-9]{1})"
+  - trigger: '(b|p)mat([1-9]{1}) ([1-9]{1})'
     replacement: |
       \begin{``rv = m[1]``matrix}``
       let order = 1;
@@ -225,7 +225,7 @@ snippets:
       word_boundary: true
       auto: true
 
-  - trigger: "vec([1-9])"
+  - trigger: 'vec([1-9])'
     replacement: |
       \begin{pmatrix}
       ``msg = snip.tabstop(1); for (i = 1; i < parseInt(m[1],10); i++) { msg += ' \\\\\\ \n' + snip.tabstop(count + 1); count++; } rv = msg;``
@@ -236,7 +236,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "((\\d+)|(\\d*)(\\\\)?([A-Za-z]+)((\\^|_)(\\{\\d+\\}|\\d))*)/"
+  - trigger: '((\d+)|(\d*)(\\)?([A-Za-z]+)((\^|_)(\{\d+\}|\d))*)/'
     replacement: "\\frac{``rv = m[1]``}{$1}$0"
     description: "Fraction (no parentheses)"
     target_platforms: [vscode]
@@ -244,7 +244,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "^.*\\)/"
+  - trigger: '^.*\)/'
     replacement: |
       ``let str = m[0]; str = str.slice(0, -1); let lastIndex = str.length - 1; let depth = 0; let i = str.length - 1; while (true) { if (str[i] == ')') depth += 1; if (str[i] == '(') depth -= 1; if (depth == 0) break; i -= 1; } let results = str.slice(0, i) + "\\frac{" + str.slice(i+1, -1) + "}"; rv = results;``
       {$1}$0
@@ -254,7 +254,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "([a-zA-Z]+)([0-9]+) "
+  - trigger: '([a-zA-Z]+)([0-9]+) '
     replacement: |
       ``if ( m[2].length == 1 ) { a = '_'; b = ' '; } else { a = '_{'; b = '} '; } if (m[1] == "pmat" || m[1] == "bmat" || m[1] == "ary") { rv = m[1] + m[2] + ' ' } else { rv = m[1] + a + m[2] + b }``
     description: "Underset"
@@ -265,7 +265,7 @@ snippets:
 
 # General symbols (vscode only)
 
-  - trigger: "({{GREEK}}|{{SYMBOL}}|{{SHORT_SYMBOL}})"
+  - trigger: '({{GREEK}}|{{SYMBOL}}|{{SHORT_SYMBOL}})'
     replacement: "\\``rv = m[1]``"
     description: "Greek letter, symbol, or short symbol"
     target_platforms: [vscode]
@@ -275,329 +275,329 @@ snippets:
 
 # Greek symbols
 
-  - trigger: "@a"
+  - trigger: '@a'
     replacement: "\\alpha"
     description: "alpha"
     options:
       math: true
       auto: true
 
-  - trigger: "@A"
+  - trigger: '@A'
     replacement: "\\alpha"
     description: "Alpha"
     options:
       math: true
       auto: true
 
-  - trigger: "@b"
+  - trigger: '@b'
     replacement: "\\beta"
     description: "beta"
     options:
       math: true
       auto: true
 
-  - trigger: "@B"
+  - trigger: '@B'
     replacement: "\\beta"
     description: "Beta"
     options:
       math: true
       auto: true
 
-  - trigger: "@g"
+  - trigger: '@g'
     replacement: "\\gamma"
     description: "gamma"
     options:
       math: true
       auto: true
 
-  - trigger: "@G"
+  - trigger: '@G'
     replacement: "\\Gamma"
     description: "Gamma"
     options:
       math: true
       auto: true
 
-  - trigger: "@d"
+  - trigger: '@d'
     replacement: "\\delta"
     description: "delta"
     options:
       math: true
       auto: true
 
-  - trigger: "@D"
+  - trigger: '@D'
     replacement: "\\Delta"
     description: "Delta"
     options:
       math: true
       auto: true
 
-  - trigger: "@e"
+  - trigger: '@e'
     replacement: "\\epsilon"
     description: "epsilon"
     options:
       math: true
       auto: true
 
-  - trigger: "@E"
+  - trigger: '@E'
     replacement: "\\epsilon"
     description: "Epsilon"
     options:
       math: true
       auto: true
 
-  - trigger: ":e"
+  - trigger: ':e'
     replacement: "\\varepsilon"
     description: "varepsilon"
     options:
       math: true
       auto: true
 
-  - trigger: ":E"
+  - trigger: ':E'
     replacement: "\\varepsilon"
     description: "Varepsilon"
     options:
       math: true
       auto: true
 
-  - trigger: "@z"
+  - trigger: '@z'
     replacement: "\\zeta"
     description: "zeta"
     options:
       math: true
       auto: true
 
-  - trigger: "@Z"
+  - trigger: '@Z'
     replacement: "\\zeta"
     description: "Zeta"
     options:
       math: true
       auto: true
 
-  - trigger: "@h"
+  - trigger: '@h'
     replacement: "\\eta"
     description: "eta"
     options:
       math: true
       auto: true
 
-  - trigger: "@t"
+  - trigger: '@t'
     replacement: "\\theta"
     description: "theta"
     options:
       math: true
       auto: true
 
-  - trigger: "@T"
+  - trigger: '@T'
     replacement: "\\Theta"
     description: "Theta"
     options:
       math: true
       auto: true
 
-  - trigger: "@i"
+  - trigger: '@i'
     replacement: "\\iota"
     description: "iota"
     options:
       math: true
       auto: true
 
-  - trigger: "@k"
+  - trigger: '@k'
     replacement: "\\kappa"
     description: "kappa"
     options:
       math: true
       auto: true
 
-  - trigger: "@K"
+  - trigger: '@K'
     replacement: "\\kappa"
     description: "Kappa"
     options:
       math: true
       auto: true
 
-  - trigger: "@l"
+  - trigger: '@l'
     replacement: "\\lambda"
     description: "lambda"
     options:
       math: true
       auto: true
 
-  - trigger: "@L"
+  - trigger: '@L'
     replacement: "\\Lambda"
     description: "Lambda"
     options:
       math: true
       auto: true
 
-  - trigger: "@m"
+  - trigger: '@m'
     replacement: "\\mu"
     description: "mu"
     options:
       math: true
       auto: true
 
-  - trigger: "@M"
+  - trigger: '@M'
     replacement: "\\mu"
     description: "Mu"
     options:
       math: true
       auto: true
 
-  - trigger: "@n"
+  - trigger: '@n'
     replacement: "\\nu"
     description: "nu"
     options:
       math: true
       auto: true
   
-  - trigger: "@x"
+  - trigger: '@x'
     replacement: "\\xi"
     description: "xi"
     options:
       math: true
       auto: true
 
-  - trigger: "@X"
+  - trigger: '@X'
     replacement: "\\Xi"
     description: "Xi"
     options:
       math: true
       auto: true
 
-  - trigger: "@p"
+  - trigger: '@p'
     replacement: "\\pi"
     description: "pi"
     options:
       math: true
       auto: true
 
-  - trigger: "@P"
+  - trigger: '@P'
     replacement: "\\Pi"
     description: "Pi"
     options:
       math: true
       auto: true
 
-  - trigger: "@r"
+  - trigger: '@r'
     replacement: "\\rho"
     description: "rho"
     options:
       math: true
       auto: true
 
-  - trigger: "@R"
+  - trigger: '@R'
     replacement: "\\rho"
     description: "Rho"
     options:
       math: true
       auto: true
 
-  - trigger: "@s"
+  - trigger: '@s'
     replacement: "\\sigma"
     description: "sigma"
     options:
       math: true
       auto: true
 
-  - trigger: "@S"
+  - trigger: '@S'
     replacement: "\\Sigma"
     description: "Sigma"
     options:
       math: true
       auto: true
 
-  - trigger: "@u"
+  - trigger: '@u'
     replacement: "\\tau"
     description: "tau"
     options:
       math: true
       auto: true
 
-  - trigger: "@y"
+  - trigger: '@y'
     replacement: "\\upsilon"
     description: "upsilon"
     options:
       math: true
       auto: true
 
-  - trigger: "@Y"
+  - trigger: '@Y'
     replacement: "\\Upsilon"
     description: "Upsilon"
     options:
       math: true
       auto: true
 
-  - trigger: "@f"
+  - trigger: '@f'
     replacement: "\\phi"
     description: "phi"
     options:
       math: true
       auto: true
 
-  - trigger: "@F"
+  - trigger: '@F'
     replacement: "\\phi"
     description: "Phi"
     options:
       math: true
       auto: true
 
-  - trigger: ":f"
+  - trigger: ':f'
     replacement: "\\varphi"
     description: "varphi"
     options:
       math: true
       auto: true
 
-  - trigger: ":F"
+  - trigger: ':F'
     replacement: "\\varphi"
     description: "Varphi"
     options:
       math: true
       auto: true
 
-  - trigger: "@v"
+  - trigger: '@v'
     replacement: "\\psi"
     description: "psi"
     options:
       math: true
       auto: true
 
-  - trigger: "@V"
+  - trigger: '@V'
     replacement: "\\Psi"
     description: "Psi"
     options:
       math: true
       auto: true
 
-  - trigger: "@c"
+  - trigger: '@c'
     replacement: "\\chi"
     description: "chi"
     options:
       math: true
       auto: true
 
-  - trigger: "@C"
+  - trigger: '@C'
     replacement: "\\chi"
     description: "Chi"
     options:
       math: true
       auto: true
 
-  - trigger: "@o"
+  - trigger: '@o'
     replacement: "\\omega"
     description: "omega"
     options:
       math: true
       auto: true
 
-  - trigger: "@O"
+  - trigger: '@O'
     replacement: "\\Omega"
     description: "Omega"
     options:
       math: true
       auto: true
 
-  - trigger: "ome"
+  - trigger: 'ome'
     replacement: "\\omega"
     description: "omega"
     options:
@@ -606,7 +606,7 @@ snippets:
 
 # Trigonometry and inequalities
 
-  - trigger: "([^\\\\])(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)"
+  - trigger: '([^\\])(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)'
     replacement: "[[0]]\\[[1]]"
     description: "Trigonometric function"
     options:
@@ -617,7 +617,7 @@ snippets:
       vscode:
         replacement: "``rv = m[1] + '\\'  + m[2]``"
 
-  - trigger: "\\\\(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)([A-Za-gi-z])"
+  - trigger: '\\(arcsin|arccos|arctan|arccot|arccsc|arcsec|sin|cos|tan|cot|csc|sec)([A-Za-gi-z])'
     replacement: "\\[[0]] [[1]]"
     description: "Space after trigonometric functions"
     options:
@@ -628,7 +628,7 @@ snippets:
       vscode:
         replacement: "``rv = '\\' + m[1] + ' ' + m[2]``"
 
-  - trigger: "\\\\(arcsinh|arccosh|arctanh|arccoth|arcsch|arcsech|sinh|cosh|tanh|coth|csch|sech)([A-Za-z])"
+  - trigger: '\\(arcsinh|arccosh|arctanh|arccoth|arcsch|arcsech|sinh|cosh|tanh|coth|csch|sech)([A-Za-z])'
     replacement: "\\[[0]] [[1]]"
     description: "Space after hyperbolic trigonometric functions"
     options:
@@ -639,7 +639,7 @@ snippets:
       vscode:
         replacement: "``rv = '\\' + m[1] + ' ' + m[2]``"
 
-  - trigger: "\\\\(neq|geq|leq|gg|ll|sim)([0-9]+)"
+  - trigger: '\\(neq|geq|leq|gg|ll|sim)([0-9]+)'
     replacement: "\\[[0]] [[1]]"
     description: "Inequality"
     options:
@@ -652,7 +652,7 @@ snippets:
 
 # Common mathematical letter symbols
 
-  - trigger: "(CC|RR|QQ|ZZ|NN|FF|EE|PP)"
+  - trigger: '(CC|RR|QQ|ZZ|NN|FF|EE|PP)'
     replacement: "\\[[0]]"
     description: "Common mathematical letter symbols"
     options:
@@ -663,42 +663,42 @@ snippets:
       vscode:
         replacement: "``rv = '\\' + m[1]``"
 
-  - trigger: "II"
+  - trigger: 'II'
     replacement: "\\mathbb{1}"
     description: "II"
     options:
       math: true
       auto: true
 
-  - trigger: "\\mathbb{1}I"
+  - trigger: '\\mathbb{1}I'
     replacement: "\\hat{\\mathbb{1}}"
     description: "III"
     options:
       math: true
       auto: true
 
-  - trigger: "Fp"
+  - trigger: 'Fp'
     replacement: "\\FF_p"
     description: "F_p"
     options:
       math: true
       auto: true
 
-  - trigger: "Fq"
+  - trigger: 'Fq'
     replacement: "\\FF_q"
     description: "F_q"
     options:
       math: true
       auto: true
 
-  - trigger: "Rn"
+  - trigger: 'Rn'
     replacement: "\\RR^n"
     description: "R^n"
     options:
       math: true
       auto: true
 
-  - trigger: "lll"
+  - trigger: 'lll'
     replacement: "\\ell"
     description: "ell"
     options:
@@ -706,7 +706,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "([A-Z])#"
+  - trigger: '([A-Z])#'
     replacement: "\\mathbb{[[0]]}"
     description: "Boldface"
     options:
@@ -719,7 +719,7 @@ snippets:
 
 # Common mathematical symbols
 
-  - trigger: ".."
+  - trigger: '..'
     replacement: "\\ldots"
     description: "ellipsis"
     target_platforms: [obsidian]
@@ -727,7 +727,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "\\.\\."
+  - trigger: '\.\.'
     replacement: "\\ldots"
     description: "ellipsis"
     target_platforms: [vscode]
@@ -735,7 +735,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "\\ldots."
+  - trigger: '\\ldots.'
     replacement: "\\cdots"
     description: "ellipsis with period"
     target_platforms: [obsidian]
@@ -743,7 +743,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "\\ldots\\."
+  - trigger: '\\ldots\.'
     replacement: "\\cdots"
     description: "ellipsis with period"
     target_platforms: [vscode]
@@ -751,14 +751,14 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "ooo"
+  - trigger: 'ooo'
     replacement: "\\infty"
     description: "infinity"
     options:
       math: true
       auto: true
 
-  - trigger: "+-"
+  - trigger: '+-'
     replacement: "\\pm"
     description: "plus or minus"
     target_platforms: [obsidian]
@@ -766,7 +766,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "\\+-"
+  - trigger: '\+-'
     replacement: "\\pm"
     description: "plus or minus"
     target_platforms: [vscode]
@@ -774,7 +774,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "-+"
+  - trigger: '-\+'
     replacement: "\\mp"
     description: "minus or plus"
     target_platforms: [obsidian]
@@ -782,7 +782,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "-\\+"
+  - trigger: '-\+'
     replacement: "\\mp"
     description: "minus or plus"
     target_platforms: [vscode]
@@ -790,7 +790,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "([^\\\\])pm"
+  - trigger: '([^\\])pm'
     replacement: "[[0]]\\pm"
     description: "plus or minus"
     options:
@@ -800,7 +800,7 @@ snippets:
       vscode:
         replacement: "``rv = m[1]``\\pm"
 
-  - trigger: "([^\\\\])mp"
+  - trigger: '([^\\])mp'
     replacement: "[[0]]\\mp"
     description: "minus or plus"
     options:
@@ -810,21 +810,21 @@ snippets:
       vscode:
         replacement: "``rv = m[1]``\\mp"
 
-  - trigger: "xx"
+  - trigger: 'xx'
     replacement: "\\times"
     description: "times"
     options:
       math: true
       auto: true
 
-  - trigger: "sq"
+  - trigger: 'sq'
     replacement: "\\sqrt{ $1 }$2"
     description: "square root"
     options:
       math: true
       auto: true
 
-  - trigger: "<->"
+  - trigger: '<->'
     replacement: "\\leftrightarrow"
     description: "leftrightarrow"
     options:
@@ -835,35 +835,35 @@ snippets:
         options:
           priority: 2
 
-  - trigger: "->"
+  - trigger: '->'
     replacement: "\\to"
     description: "to"
     options:
       math: true
       auto: true
 
-  - trigger: "!>"
+  - trigger: '!>'
     replacement: "\\mapsto"
     description: "maps to"
     options:
       math: true
       auto: true
 
-  - trigger: "=>"
+  - trigger: '=>'
     replacement: "\\implies"
     description: "implies"
     options:
       math: true
       auto: true
 
-  - trigger: "=<"
+  - trigger: '=<'
     replacement: "\\impliedby"
     description: "impliedby"
     options:
       math: true
       auto: true
 
-  - trigger: "\\\\\\"
+  - trigger: '\\\\\\'
     replacement: "\\setminus"
     description: "setminus"
     options:
@@ -873,7 +873,7 @@ snippets:
         options:
           math: true
   
-  - trigger: "||"
+  - trigger: '||'
     replacement: "\\mid"
     description: "mid"
     target_platforms: [obsidian]
@@ -881,7 +881,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "\\|\\|"
+  - trigger: '\|\|'
     replacement: "\\mid"
     description: "mid"
     target_platforms: [vscode]
@@ -889,35 +889,35 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "and"
+  - trigger: 'and'
     replacement: "\\cap"
     description: "intersection"
     options:
       math: true
       auto: true
   
-  - trigger: "orr"
+  - trigger: 'orr'
     replacement: "\\cup"
     description: "union"
     options:
       math: true
       auto: true
   
-  - trigger: "inn"
+  - trigger: 'inn'
     replacement: "\\in"
     description: "in"
     options:
       math: true
       auto: true
   
-  - trigger: "notin"
+  - trigger: 'notin'
     replacement: "\\notin"
     description: "not in"
     options:
       math: true
       auto: true
 
-  - trigger: "\\subset eq"
+  - trigger: '\\subset eq'
     replacement: "\\subseteq"
     description: "subseteq"
     options:
@@ -928,7 +928,7 @@ snippets:
         options:
           priority: 5
 
-  - trigger: "\\supset eq"
+  - trigger: '\\supset eq'
     replacement: "\\supseteq"
     description: "supseteq"
     options:
@@ -939,91 +939,91 @@ snippets:
         options:
           priority: 5
 
-  - trigger: "eset"
+  - trigger: 'eset'
     replacement: "\\varnothing"
     description: "empty set"
     options:
       math: true
       auto: true
 
-  - trigger: "set"
+  - trigger: 'set'
     replacement: "\\{ $1 \\}$2"
     description: "set"
     options:
       math: true
       auto: true
 
-  - trigger: "e\\xi sts"
+  - trigger: 'e\\xi sts'
     replacement: "\\exists"
     description: "exists"
     options:
       math: true
       auto: true
 
-  - trigger: "==="
+  - trigger: '==='
     replacement: "\\equiv"
     description: "equivalent"
     options:
       math: true
       auto: true
 
-  - trigger: "Sq"
+  - trigger: 'Sq'
     replacement: "\\square"
     description: "square"
     options:
       math: true
       auto: true
 
-  - trigger: "!="
+  - trigger: '!='
     replacement: "\\neq"
     description: "not equal"
     options:
       math: true
       auto: true
 
-  - trigger: ">="
+  - trigger: '>='
     replacement: "\\geq"
     description: "greater than or equal to"
     options:
       math: true
       auto: true
 
-  - trigger: "<="
+  - trigger: '<='
     replacement: "\\leq"
     description: "less than or equal to"
     options:
       math: true
       auto: true
   
-  - trigger: ">>"
+  - trigger: '>>'
     replacement: "\\gg"
     description: "greater than"
     options:
       math: true
       auto: true
 
-  - trigger: "<<"
+  - trigger: '<<'
     replacement: "\\ll"
     description: "less than"
     options:
       math: true
       auto: true
 
-  - trigger: "~~"
+  - trigger: '~~'
     replacement: "\\sim"
     description: "similar to"
     options:
       math: true
       auto: true
 
-  - trigger: "\\sim ~"
+  - trigger: '\\sim ~'
     replacement: "\\approx"
     description: "approx"
     options:
       math: true
       auto: true
 
-  - trigger: "//"
+  - trigger: '//'
     replacement: "\\frac{$1}{$2}$3"
     description: "fraction"
     target_platforms: [obsidian]
@@ -1031,7 +1031,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "\\/\\/"
+  - trigger: '\/\/'
     replacement: "\\frac{$1}{$2}$3"
     description: "fraction"
     target_platforms: [vscode]
@@ -1039,14 +1039,14 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "prop"
+  - trigger: 'prop'
     replacement: "\\propto"
     description: "proportional to"
     options:
       math: true
       auto: true
 
-  - trigger: "(nabl|del)"
+  - trigger: '(nabl|del)'
     replacement: "\\nabla"
     description: "nabla"
     options:
@@ -1054,7 +1054,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "**"
+  - trigger: '**'
     replacement: "\\cdot"
     description: "dot"
     target_platforms: [obsidian]
@@ -1062,7 +1062,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "\\*\\*"
+  - trigger: '\*\*'
     replacement: "\\cdot"
     description: "dot"
     target_platforms: [vscode]
@@ -1070,58 +1070,49 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "para"
+  - trigger: 'para'
     replacement: "\\parallel"
     description: "parallel"
     options:
       math: true
       auto: true
 
-  - trigger: "\\pi tchfork"
+  - trigger: '\\pi tchfork'
     replacement: "\\pitchfork"
     description: "pitchfork"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-  
-  - trigger: "\\\\pi tchfork"
-    replacement: "\\pitchfork"
-    description: "pitchfork"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
     
-  - trigger: "trace"
+  - trigger: 'trace'
     replacement: "\\tr"
     description: "trace"
     options:
       math: true
       auto: true
 
-  - trigger: "lim"
+  - trigger: 'lim'
     replacement: "\\lim_{ ${1:n} \\to ${2:\\infty} } $3"
     description: "limit"
     options:
       math: true
       auto: true
 
-  - trigger: "linf"
+  - trigger: 'linf'
     replacement: "\\liminf_{ ${1:n} \\to ${2:\\infty} } $3"
     description: "liminf"
     options:
       math: true
       auto: true
       
-  - trigger: "lsup"
+  - trigger: 'lsup'
     replacement: "\\limsup_{ ${1:n} \\to ${2:\\infty} } $3"
     description: "limsup"
     options:
       math: true
       auto: true
 
-  - trigger: "o+"
+  - trigger: 'o+'
     replacement: "\\oplus"
     description: "oplus"
     target_platforms: [obsidian]
@@ -1129,7 +1120,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "o\\+"
+  - trigger: 'o\+'
     replacement: "\\oplus"
     description: "oplus"
     target_platforms: [vscode]
@@ -1137,21 +1128,21 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "ox"
+  - trigger: 'ox'
     replacement: "\\otimes"
     description: "otimes"
     options:
       math: true
       auto: true
 
-  - trigger: "ot\\imes"
+  - trigger: 'ot\\imes'
     replacement: "\\otimes"
     description: "otimes"
     options:
       math: true
       auto: true
 
-  - trigger: "\\cdot ss"
+  - trigger: '\\cdot ss'
     replacement: "\\cdots"
     description: "cdots"
     options:
@@ -1163,63 +1154,63 @@ snippets:
 
 # Notations with subscripts and superscripts
 
-  - trigger: "sr"
+  - trigger: 'sr'
     replacement: "^{2}"
     description: "square"
     options:
       math: true
       auto: true
 
-  - trigger: "cb"
+  - trigger: 'cb'
     replacement: "^{3}"
     description: "cube"
     options:
       math: true
       auto: true
   
-  - trigger: "rd"
+  - trigger: 'rd'
     replacement: "^{$1}$2"
     description: "superscript"
     options:
       math: true
       auto: true
 
-  - trigger: "invs"
+  - trigger: 'invs'
     replacement: "^{-1}"
     description: "inverse"
     options:
       math: true
       auto: true
 
-  - trigger: "ee"
+  - trigger: 'ee'
     replacement: "e^{$1}$2"
     description: "exponential"
     options:
       math: true
       auto: true
 
-  - trigger: "conj"
+  - trigger: 'conj'
     replacement: "^{*}"
     description: "conjugate"
     options:
       math: true
       auto: true
 
-  - trigger: "sts"
+  - trigger: 'sts'
     replacement: "_\\text{$1}"
     description: "subscript"
     options:
       math: true
       auto: true
 
-  - trigger: "_"
+  - trigger: '_'
     replacement: "_{$1}$2"
     description: "subscript"
     options:
       math: true
       auto: true
 
-  - trigger: "([A-Za-z])(\\d)"
+  - trigger: '([A-Za-z])(\d)'
     replacement: "[[0]]_{[[1]]}"
     description: "Auto letter subscript"
     options:
@@ -1230,7 +1221,7 @@ snippets:
       vscode:
         replacement: "``rv = m[1] + '_{' + m[2] + '}'``"
 
-  - trigger: "([A-Za-z])_(\\d\\d)"
+  - trigger: '([A-Za-z])_(\d\d)'
     replacement: "[[0]]_{[[1]]}"
     description: "Auto letter subscript"
     options:
@@ -1241,7 +1232,7 @@ snippets:
       vscode:
         replacement: "``rv = m[1] + '_{' + m[2] + '}'``"
 
-  - trigger: "\\hat{([A-Za-z])}(\\d)"
+  - trigger: '\\hat{([A-Za-z])}(\d)'
     replacement: "hat{[[0]]}_{[[1]]}"
     description: "Auto letter subscript"
     options:
@@ -1252,7 +1243,7 @@ snippets:
       vscode:
         replacement: "``rv = '\\hat{' + m[1] + '}_{' + m[2] + '}'``"
 
-  - trigger: "\\\\mathbf{([A-Za-z])}(\\d)"
+  - trigger: '\\mathbf{([A-Za-z])}(\d)'
     replacement: "\\mathbf{[[0]]}_{[[1]]}"
     description: "Auto letter subscript"
     options:
@@ -1263,7 +1254,7 @@ snippets:
       vscode:
         replacement: "``rv = '\\mathbf{' + m[1] + '}_{' + m[2] + '}'``"
 
-  - trigger: "\\\\vec{([A-Za-z])}(\\d)"
+  - trigger: '\\vec{([A-Za-z])}(\d)'
     replacement: "vec{[[0]]}_{[[1]]}"
     description: "Auto letter subscript"
     options:
@@ -1274,14 +1265,14 @@ snippets:
       vscode:
         replacement: "``rv = '\\vec{' + m[1] + '}_{' + m[2] + '}'``"
 
-  - trigger: "([a-zA-Z0-9])td"
+  - trigger: '([a-zA-Z0-9])td'
     replacement: "``rv = m[1] + '^{' + snip.tabstop(1) + '}'``"
     description: "Exponentiation"
     target_platforms: [vscode]
     options:
       math: true
 
-  - trigger: "\\b(d|D)(\\\\?\\w+)[dD](\\w{1}|\\\\\\w+) "
+  - trigger: '\b(d|D)(\\?\w+)[dD](\w{1}|\\\w+) '
     replacement: |
       ``
       if (m[1] == 'd') 
@@ -1297,7 +1288,7 @@ snippets:
 
 # Brackets
 
-  - trigger: "("
+  - trigger: '('
     replacement: "($1)$2"
     description: "Parentheses"
     target_platforms: [obsidian]
@@ -1305,7 +1296,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "["
+  - trigger: '['
     replacement: "[$1]$2"
     description: "Square brackets"
     target_platforms: [obsidian]
@@ -1313,7 +1304,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "{"
+  - trigger: '{'
     replacement: "{$1}$2"
     description: "Braces"
     target_platforms: [obsidian]
@@ -1321,7 +1312,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "lr("
+  - trigger: 'lr('
     replacement: "\\left( $1 \\right)$2"
     description: "Left and right parentheses"
     target_platforms: [obsidian]
@@ -1329,7 +1320,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "lr["
+  - trigger: 'lr['
     replacement: "\\left[ $1 \\right]$2"
     description: "Left and right square brackets"
     target_platforms: [obsidian]
@@ -1337,7 +1328,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "lr{"
+  - trigger: 'lr{'
     replacement: "\\left\\{ $1 \\right\\}$2"
     description: "Left and right braces"
     target_platforms: [obsidian]
@@ -1345,7 +1336,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "lr|"
+  - trigger: 'lr|'
     replacement: "\\left| $1 \\right|$2"
     description: "Left and right vertical bars"
     target_platforms: [obsidian]
@@ -1353,7 +1344,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "lr\\|"
+  - trigger: 'lr\|'
     replacement: "\\left| $1 \\right|$2"
     description: "Left and right vertical bars"
     target_platforms: [vscode]
@@ -1361,14 +1352,14 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "lra"
+  - trigger: 'lra'
     replacement: "\\left< $1 \\right>$2"
     description: "Left and right angle brackets"
     options:
       math: true
       auto: true
 
-  - trigger: "("
+  - trigger: '('
     replacement: "(${VISUAL})"
     description: "Visual parentheses"
     target_platforms: [obsidian]
@@ -1376,7 +1367,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "["
+  - trigger: '['
     replacement: "[${VISUAL}]"
     description: "Visual square brackets"
     target_platforms: [obsidian]
@@ -1384,7 +1375,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "{"
+  - trigger: '{'
     replacement: "{${VISUAL}}"
     description: "Visual braces"
     target_platforms: [obsidian]
@@ -1392,14 +1383,14 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "avg"
+  - trigger: 'avg'
     replacement: "\\langle $1 \\rangle $2"
     description: "Average"
     options:
       math: true
       auto: true
   
-  - trigger: "norm"
+  - trigger: 'norm'
     replacement: "\\lvert $1 \\rvert $2"
     description: "norm"
     options:
@@ -1409,7 +1400,7 @@ snippets:
       obsidian:
         priority: 1
   
-  - trigger: "Norm"
+  - trigger: 'Norm'
     replacement: "\\lVert $1 \\rVert $2"
     description: "Norm"
     options:
@@ -1419,21 +1410,21 @@ snippets:
       obsidian:
         priority: 1
 
-  - trigger: "ceil"
+  - trigger: 'ceil'
     replacement: "\\lceil $1 \\rceil $2"
     description: "ceil"
     options:
       math: true
       auto: true
 
-  - trigger: "floor"
+  - trigger: 'floor'
     replacement: "\\lfloor $1 \\rfloor $2"
     description: "floor"
     options:
       math: true
       auto: true
       
-  - trigger: "mod"
+  - trigger: 'mod'
     replacement: "\\pmod{1}$2"
     description: "mod"
     options:
@@ -1443,14 +1434,14 @@ snippets:
       obsidian:
         priority: -1
   
-  - trigger: "pmod"
+  - trigger: 'pmod'
     replacement: "\\pmod{1}$2"
     description: "pmod"
     options:
       math: true
       auto: true
   
-  - trigger: "bmod"
+  - trigger: 'bmod'
     replacement: "\\bmod{1}$2"
     description: "bmod"
     options:
@@ -1459,65 +1450,66 @@ snippets:
 
 # Styling in math mode
 
-  - trigger: "text"
+  - trigger: 'text'
     replacement: "\\text{$1}$2"
     description: "Text"
     options:
       math: true
       auto: true
 
-  - trigger: "rm"
+  - trigger: 'rm'
     replacement: "\\mathrm{$1}$2"
     description: "Roman"
     options:
       math: true
       auto: true
   
-  - trigger: "bf"
+  - trigger: 'bf'
     replacement: "\\mathbf{$1}$2"
     description: "Boldface"
     options:
       math: true
       auto: true
 
-  - trigger: "bb"
+  - trigger: 'bb'
     replacement: "\\mathbb{$1}$2"
     description: "Blackboard bold"
     options:
       math: true
       auto: true
 
-  - trigger: "mcal"
+  - trigger: 'mcal'
     replacement: "\\mathcal{$1}$2"
     description: "Caligraphic"
     options:
       math: true
       auto: true
 
-  - trigger: "sf"
+  - trigger: 'sf'
     replacement: "\\mathsf{$1}$2"
     description: "Sans-serif"
     options:
       math: true
       auto: true
 
-  - trigger: "frak"
+  - trigger: 'frak'
     replacement: "\\mathfrak{$1}$2"
     description: "Fraktur"
     options:
       math: true
       auto: true
 
-  - trigger: "oname"
+  - trigger: 'oname'
     replacement: "\\operatorname{$1}$2"
     description: "Operator name"
     options:
       math: true
       auto: true
 
-  - trigger: "\b([a-zA-Z])frak\b"
+  - trigger: '\b([a-zA-Z])frak\b'
     replacement: "\\mathfrak{[[0]]}"
     description: "Fraktur"
+    priority: 1
     options:
       regex: true
       math: true
@@ -1526,7 +1518,7 @@ snippets:
       vscode:
         replacement: "\\mathfrak{``rv = m[1]``}"
 
-  - trigger: "\b([a-zA-Z])cal\b"
+  - trigger: '\b([a-zA-Z])cal\b'
     replacement: "\\mathcal{[[0]]}"
     description: "Caligraphic"
     options:
@@ -1537,7 +1529,7 @@ snippets:
       vscode:
         replacement: "\\mathcal{``rv = m[1]``}"
 
-  - trigger: "([a-zA-Z]),\\."
+  - trigger: '([a-zA-Z]),\.'
     replacement: "\\mathbf{[[0]]}"
     description: "Boldface"
     options:
@@ -1548,7 +1540,7 @@ snippets:
       vscode:
         replacement: "\\mathbf{``rv = m[1]``}"
   
-  - trigger: "([a-zA-Z])\\.,"
+  - trigger: '([a-zA-Z])\.,'
     replacement: "\\mathbf{[[0]]}"
     description: "Boldface"
     options:
@@ -1561,7 +1553,7 @@ snippets:
 
 # Diacritic-type notation
 
-  - trigger: "(bar|hat|vec|tilde)"
+  - trigger: '(bar|hat|vec|tilde)'
     replacement: "\\[[0]]{$1}$2"
     description: "diacritic"
     options:
@@ -1571,27 +1563,27 @@ snippets:
       vscode:
         replacement: "\\``rv = m[1]``{$1}$2"
 
-  - trigger: "dot"
+  - trigger: 'dot'
     replacement: "\\dot{$1}$2"
     description: "dot"
     options:
       math: true
 
-  - trigger: "und"
+  - trigger: 'und'
     replacement: "\\underline{$1}$2"
     description: "underline"
     options:
       math: true
       auto: true
   
-  - trigger: "ovr"
+  - trigger: 'ovr'
     replacement: "\\overline{$1}$2"
     description: "overline"
     options:
       math: true
       auto: true
 
-  - trigger: "([a-zA-Z])(bar|hat|ddot|vec|tilde)"
+  - trigger: '([a-zA-Z])(bar|hat|ddot|vec|tilde)'
     replacement: "\\[[1]]{[[0]]}"
     description: "diacritic"
     options:
@@ -1602,7 +1594,7 @@ snippets:
       vscode:
         replacement: "\\``rv = m[2]``{``rv = m[1]``}"
 
-  - trigger: "([a-zA-Z])dot"
+  - trigger: '([a-zA-Z])dot'
     replacement: "\\dot{[[0]]}"
     description: "dot"
     options:
@@ -1612,7 +1604,7 @@ snippets:
       vscode:
         replacement: "\\dot{``rv = m[1]``}"
 
-  - trigger: "([a-zA-Z])und"
+  - trigger: '([a-zA-Z])und'
     replacement: "\\underline{[[0]]}"
     description: "underline"
     options:
@@ -1623,7 +1615,7 @@ snippets:
       vscode:
         replacement: "\\underline{``rv = m[1]``}"
 
-  - trigger: "([a-zA-Z])ovr"
+  - trigger: '([a-zA-Z])ovr'
     replacement: "\\overline{[[0]]}"
     description: "overline"
     options:
@@ -1636,27 +1628,27 @@ snippets:
 
 # Derivatives
 
-  - trigger: "par"
+  - trigger: 'par'
     replacement: "\\frac{ \\partial ${1:y} }{ \\partial ${2:x} } $3"
     description: "Partial derivative"
     options:
       math: true
   
-  - trigger: "pa2"
+  - trigger: 'pa2'
     replacement: "\\frac{ \\partial^{2} ${1:y} }{ \\partial ${2:x}^{2} } $3"
     description: "Second partial derivative"
     options:
       math: true
       auto: true
   
-  - trigger: "pa3"
+  - trigger: 'pa3'
     replacement: "\\frac{ \\partial^{3} ${1:y} }{ \\partial ${2:x}^{3} } $3"
     description: "Third partial derivative"
     options:
       math: true
       auto: true
   
-  - trigger: "pa([A-Za-z])([A-Za-z])"
+  - trigger: 'pa([A-Za-z])([A-Za-z])'
     replacement: "\\frac{ \\partial [[0]] }{ \\partial [[1]] } "
     description: "Partial derivative"
     options:
@@ -1666,7 +1658,7 @@ snippets:
       vscode:
         replacement: "\\frac{ \\partial ``rv = m[1]`` }{ \\partial ``rv = m[2]`` } "
 
-  - trigger: "pa([A-Za-z])([A-Za-z])([A-Za-z])"
+  - trigger: 'pa([A-Za-z])([A-Za-z])([A-Za-z])'
     replacement: "\\frac{ \\partial^{2} [[0]] }{ \\partial [[1]]^{2} } "
     description: "Second partial derivative"
     options:
@@ -1677,7 +1669,7 @@ snippets:
       vscode:
         replacement: "\\frac{ \\partial^{2} ``rv = m[1]`` }{ \\partial ``rv = m[2]``^{2} } "
 
-  - trigger: "pa([A-Za-z])([A-Za-z])2"
+  - trigger: 'pa([A-Za-z])([A-Za-z])2'
     replacement: "\\frac{ \\partial^{2} [[0]] }{ \\partial [[1]]^{2} } "
     description: "Second partial derivative"
     options:
@@ -1688,7 +1680,7 @@ snippets:
       vscode:
         replacement: "\\frac{ \\partial^{2} ``rv = m[1]`` }{ \\partial ``rv = m[2]``^{2} } "
 
-  - trigger: "de([A-Za-z])([A-Za-z])"
+  - trigger: 'de([A-Za-z])([A-Za-z])'
     replacement: "\\frac{ d[[0]] }{ d[[1]] } "
     description: "Derivative"
     options:
@@ -1698,7 +1690,7 @@ snippets:
       vscode:
         replacement: "\\frac{ d``rv = m[1]`` }{ d``rv = m[2]`` } "
   
-  - trigger: "de([A-Za-z])([A-Za-z])2"
+  - trigger: 'de([A-Za-z])([A-Za-z])2'
     replacement: "\\frac{ d^{2}[[0]] }{ d[[1]]^{2} } "
     description: "Second derivative"
     options:
@@ -1709,21 +1701,21 @@ snippets:
       vscode:
         replacement: "\\frac{ d^{2}``rv = m[1]`` }{ d``rv = m[2]``^{2} } "
 
-  - trigger: "ddx"
+  - trigger: 'ddx'
     replacement: "\\frac{d}{dx}"
     description: "Derivative wrt x"
     options:
       math: true
       auto: true
 
-  - trigger: "ddy"
+  - trigger: 'ddy'
     replacement: "\\frac{d}{dy}"
     description: "Derivative wrt y"
     options:
       math: true
       auto: true
   
-  - trigger: "ddt"
+  - trigger: 'ddt'
     replacement: "\\frac{d}{dt}"
     description: "Derivative wrt t"
     options:
@@ -1732,21 +1724,21 @@ snippets:
 
 # Integrals
 
-  - trigger: "oinf"
+  - trigger: 'oinf'
     replacement: "\\int_{0}^{\\infty} $1 \\, d${2:x} $3"
     description: "Integral from 0 to infinity"
     options:
       math: true
       auto: true
 
-  - trigger: "infi"
+  - trigger: 'infi'
     replacement: "\\int_{-\\infty}^{\\infty} $1 \\, d${2:x} $3"
     description: "Integral from negative infinity to infinity"
     options:
       math: true
       auto: true
   
-  - trigger: "dint"
+  - trigger: 'dint'
     replacement: "\\int_{${1:0}}^{${2:\\infty}} $3 \\, d${4:x} $5"
     description: "Integral from 0 to infinity"
     options:
@@ -1755,77 +1747,77 @@ snippets:
 
 # Miscellaneous utilities
 
-  - trigger: "fx"
+  - trigger: 'fx'
     replacement: "f(x)"
     description: "Function"
     options:
       math: true
       auto: true
 
-  - trigger: "ff"
+  - trigger: 'ff'
     replacement: "f($1)"
     description: "Function"
     options:
       math: true
       auto: true
 
-  - trigger: "xnn"
+  - trigger: 'xnn'
     replacement: "x_{n}"
     description: "x_n"
     options:
       math: true
       auto: true
   
-  - trigger: "xii"
+  - trigger: 'xii'
     replacement: "x_{i}"
     description: "x_i"
     options:
       math: true
       auto: true
 
-  - trigger: "\\xi i"
+  - trigger: '\\xi i'
     replacement: "x_{i} alternate"
     description: "x_i"
     options:
       math: true
       auto: true
   
-  - trigger: "xjj"
+  - trigger: 'xjj'
     replacement: "x_{j}"
     description: "x_j"
     options:
       math: true
       auto: true
   
-  - trigger: "xp1"
+  - trigger: 'xp1'
     replacement: "x_{n+1}"
     description: "x_{n+1}"
     options:
       math: true
       auto: true
 
-  - trigger: "ynn"
+  - trigger: 'ynn'
     replacement: "y_{n}"
     description: "y_n"
     options:
       math: true
       auto: true
 
-  - trigger: "yii"
+  - trigger: 'yii'
     replacement: "y_{i}"
     description: "y_i"
     options:
       math: true
       auto: true
 
-  - trigger: "yjj"
+  - trigger: 'yjj'
     replacement: "y_{j}"
     description: "y_j"
     options:
       math: true
       auto: true
 
-  - trigger: ":(i|j|k)"
+  - trigger: ':(i|j|k)'
     replacement: "\\mathbf{[[0]]}"
     description: "Unit vector (i, j, k)"
     options:
@@ -1836,7 +1828,7 @@ snippets:
       vscode:
         replacement: "``rv = '\\mathbf{' + m[1] + '}'``"
 
-  - trigger: ":(x|y|z)"
+  - trigger: ':(x|y|z)'
     replacement: "\\hat{\\mathbf{[[0]]}}"
     description: "Unit vector (x, y, z)"
     options:
@@ -1849,49 +1841,49 @@ snippets:
 
 # Physics and quantum mechanics
 
-  - trigger: "kbt"
+  - trigger: 'kbt'
     replacement: "k_{B} T"
     description: "k_B T"
     options:
       math: true
       auto: true
 
-  - trigger: "hba"
+  - trigger: 'hba'
     replacement: "\\hbar"
     description: "hbar"
     options:
       math: true
       auto: true
 
-  - trigger: "dag"
+  - trigger: 'dag'
     replacement: "^{\\dagger}"
     description: "dagger"
     options:
       math: true
       auto: true
 
-  - trigger: "bra"
+  - trigger: 'bra'
     replacement: "\\bra{$1} $2"
     description: "bra"
     options:
       math: true
       auto: true
 
-  - trigger: "ket"
+  - trigger: 'ket'
     replacement: "\\ket{$1} $2"
     description: "ket"
     options:
       math: true
       auto: true
 
-  - trigger: "brk"
+  - trigger: 'brk'
     replacement: "\\braket{ $1 | $2 } $3"
     description: "braket"
     options:
       math: true
       auto: true
 
-  - trigger: "\\\\bra{([^|]+)\\|"
+  - trigger: '\\bra{([^|]+)\|'
     replacement: "\\braket{ [[0]] | $0 "
     description: "Convert bra into braket"
     options:
@@ -1902,7 +1894,7 @@ snippets:
       vscode:
         replacement: "\\braket{ ``rv = m[1]`` | $1 "
 
-  - trigger: "\\\\bra{(.+)}([^ ]+)>"
+  - trigger: '\\bra{(.+)}([^ ]+)>'
     replacement: "\\braket{ [[0]] | $0"
     description: "Convert bra into braket"
     options:
@@ -1913,7 +1905,7 @@ snippets:
       vscode:
         replacement: "\\braket{ ``rv = m[1]`` | $1 "
 
-  - trigger: "outp"
+  - trigger: 'outp'
     replacement: "\\ket{${1:\\psi}} \\bra{${1:\\psi}} $2"
     description: "output"
     options:
@@ -1922,14 +1914,14 @@ snippets:
 
 # Chemistry
 
-  - trigger: "pu"
+  - trigger: 'pu'
     replacement: "\\pu{ $1 }"
     description: "physical units"
     options:
       math: true
       auto: true
 
-  - trigger: "(msun|solm)"
+  - trigger: '(msun|solm)'
     replacement: "M_{\\odot}"
     description: "solar mass"
     options:
@@ -1937,28 +1929,28 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "cee"
+  - trigger: 'cee'
     replacement: "\\ce{ $1 }"
     description: "chemical formula"
     options:
       math: true
       auto: true
 
-  - trigger: "iso"
+  - trigger: 'iso'
     replacement: "{}^{${1:4}}_{${2:2}}${3:He}"
     description: "isotope"
     options:
       math: true
       auto: true
 
-  - trigger: "hel4"
+  - trigger: 'hel4'
     replacement: "{}^{4}_{2}He"
     description: "helium"
     options:
       math: true
       auto: true
 
-  - trigger: "hel3"
+  - trigger: 'hel3'
     replacement: "{}^{3}_{2}He"
     description: "helium"
     options:
@@ -1967,7 +1959,7 @@ snippets:
 
 # Regex utilities for Greek and Symbols
 
-  - trigger: "([^\\\\])({{GREEK}}|{{SYMBOL}})"
+  - trigger: '([^\\])({{GREEK}}|{{SYMBOL}})'
     replacement: "[[0]]\\[[1]]"
     description: "Add backslash before greek letters and symbols"
     options:
@@ -1976,11 +1968,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "([^\\\\])(${GREEK}|${SYMBOL})"
+        trigger: '([^\\])(${GREEK}|${SYMBOL})'
       vscode:
         replacement: "``rv = m[1] + '\\' + m[2]``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}|{{SHORT_SYMBOL}})([A-Za-z])"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}|{{SHORT_SYMBOL}})([A-Za-z])'
     replacement: "\\[[0]] [[1]]"
     description: "Insert space after greek letters and symbols"
     priority: 1
@@ -1990,11 +1982,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}|${SHORT_SYMBOL})([A-Za-z])"
+        trigger: '\\(${GREEK}|${SYMBOL}|${SHORT_SYMBOL})([A-Za-z])'
       vscode:
         replacement: "``rv = '\\' + m[1] + ' ' + m[2]``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) sr"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) sr'
     replacement: "\\[[0]]^{2}"
     description: "Superscript 2 after greek letters and symbols"
     options:
@@ -2003,11 +1995,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) sr"
+        trigger: '\\(${GREEK}|${SYMBOL}) sr'
       vscode:
         replacement: "``rv = '\\' + m[1] + '^{2}'``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) cb"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) cb'
     replacement: "\\[[0]]^{3}"
     description: "Superscript 3 after greek letters and symbols"
     options:
@@ -2016,11 +2008,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) cb"
+        trigger: '\\(${GREEK}|${SYMBOL}) cb'
       vscode:
         replacement: "``rv = '\\' + m[1] + '^{3}'``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) rd"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) rd'
     replacement: "\\[[0]]^{$0}$1"
     description: "Superscript arbitrary after greek letters and symbols"
     options:
@@ -2029,11 +2021,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) rd"
+        trigger: '\\(${GREEK}|${SYMBOL}) rd'
       vscode:
         replacement: "``rv = '\\' + m[1] + '^{$1}$2'``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) (hat|bar|vec|tilde)"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) (hat|bar|vec|tilde)'
     replacement: "\\[[1]]{\\[[0]]}"
     description: "Diacritic over greek letters and symbols"
     options:
@@ -2042,11 +2034,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) (hat|bar|vec|tilde)"
+        trigger: '\\(${GREEK}|${SYMBOL}) (hat|bar|vec|tilde)'
       vscode:
         replacement: "``rv = '\\' + m[2] + '{' + m[1] + '}'``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) dot"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) dot'
     replacement: "\\dot{\\[[0]]}"
     description: "Diacritic over greek letters and symbols"
     options:
@@ -2054,11 +2046,11 @@ snippets:
       math: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) dot"
+        trigger: '\\(${GREEK}|${SYMBOL}) dot'
       vscode:
         replacement: "``rv = '\\dot{' + m[1] + '}'``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) und"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) und'
     replacement: "\\underline{\\[[0]]}"
     description: "Underline greek letters and symbols"
     options:
@@ -2067,11 +2059,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) und"
+        trigger: '\\(${GREEK}|${SYMBOL}) und'
       vscode:
         replacement: "``rv = '\\underline{' + m[1] + '}'``"
 
-  - trigger: "\\\\({{GREEK}}|{{SYMBOL}}) ovr"
+  - trigger: '\\({{GREEK}}|{{SYMBOL}}) ovr'
     replacement: "\\overline{\\[[0]]}"
     description: "Overline greek letters and symbols"
     options:
@@ -2080,11 +2072,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}|${SYMBOL}) ovr"
+        trigger: '\\(${GREEK}|${SYMBOL}) ovr'
       vscode:
         replacement: "``rv = '\\overline{' + m[1] + '}'``"
 
-  - trigger: "\\\\({{GREEK}}),\\."
+  - trigger: '\\({{GREEK}}),\\.'
     replacement: "\\boldsymbol{\\[[0]]}"
     description: "Bold greek letter (comma dot)"
     options:
@@ -2093,11 +2085,11 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK}),\\."
+        trigger: '\\(${GREEK}),\\.'
       vscode:
         replacement: "``rv = '\\boldsymbol{' + m[1] + '}'``"
 
-  - trigger: "\\\\({{GREEK}})\\.,"
+  - trigger: '\\({{GREEK}})\\.,'
     replacement: "\\boldsymbol{\\[[0]]}"
     description: "Bold greek letter (dot comma)"
     options:
@@ -2106,13 +2098,13 @@ snippets:
       auto: true
     platforms:
       obsidian:
-        trigger: "\\\\(${GREEK})\\.,"
+        trigger: '\\(${GREEK})\\.,'
       vscode:
         replacement: "``rv = '\\boldsymbol{' + m[1] + '}'``"
 
 # Obsidian visual operations
 
-  - trigger: "U"
+  - trigger: 'U'
     replacement: "\\underbrace{ ${VISUAL} }_{ $0 }"
     description: "underbrace"
     target_platforms: [obsidian]
@@ -2120,7 +2112,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "O"
+  - trigger: 'O'
     replacement: "\\overbrace{ ${VISUAL} }^{ $0 }"
     description: "overbrace"
     target_platforms: [obsidian]
@@ -2128,7 +2120,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "B"
+  - trigger: 'B'
     replacement: "\\underset{ $0 }{ ${VISUAL} }"
     description: "underset"
     target_platforms: [obsidian]
@@ -2136,7 +2128,7 @@ snippets:
       math: true
       auto: true
       
-  - trigger: "C"
+  - trigger: 'C'
     replacement: "\\cancel{ ${VISUAL} }"
     description: "cancel"
     target_platforms: [obsidian]
@@ -2144,7 +2136,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "K"
+  - trigger: 'K'
     replacement: "\\cancelto{ $0 }{ ${VISUAL} }"
     description: "cancelto"
     target_platforms: [obsidian]
@@ -2152,7 +2144,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "S"
+  - trigger: 'S'
     replacement: "\\sqrt{ ${VISUAL} }"
     description: "sqrt"
     target_platforms: [obsidian]
@@ -2162,98 +2154,98 @@ snippets:
   
 # Obsidian callouts
 
-  - trigger: "def"
+  - trigger: 'def'
     replacement: "> [!info] Definition\n> $0"
     description: "Definition"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "ex"
+  - trigger: 'ex'
     replacement: "> [!example] Example\n> $0"
     description: "Example"
     target_platforms: [obsidian]
     options:
       text: true
   
-  - trigger: "rem"
+  - trigger: 'rem'
     replacement: "> [!note] Remark\n> $0"
     description: "Remark"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "thm"
+  - trigger: 'thm'
     replacement: "> [!note] Theorem\n> $0"
     description: "Theorem"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "pf"
+  - trigger: 'pf'
     replacement: "> [!success] Proof\n> $0"
     description: "Proof"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "ans"
+  - trigger: 'ans'
     replacement: "> [!success] Answer\n> $0"
     description: "Answer"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "soln"
+  - trigger: 'soln'
     replacement: "> [!success] Solution\n> $0"
     description: "Solution"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "qu"
+  - trigger: 'qu'
     replacement: "> [!question] Question\n> $0"
     description: "Question"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "cor"
+  - trigger: 'cor'
     replacement: "> [!note] Corollary\n> $0"
     description: "Corollary"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "prop"
+  - trigger: 'prop'
     replacement: "> [!note] Proposition\n> $0"
     description: "Proposition"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "lem"
+  - trigger: 'lem'
     replacement: "> [!note] Lemma\n> $0"
     description: "Lemma"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "fact"
+  - trigger: 'fact'
     replacement: "> [!note] Fact\n> $0"
     description: "Fact"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "claim"
+  - trigger: 'claim'
     replacement: "> [!note] Claim\n> $0"
     description: "Claim"
     target_platforms: [obsidian]
     options:
       text: true
 
-  - trigger: "note"
+  - trigger: 'note'
     replacement: "> [!note] Note\n> $0"
     description: "Note"
     target_platforms: [obsidian]
@@ -2262,7 +2254,7 @@ snippets:
 
 # Obsidian-only complexity theory
 
-  - trigger: "\\PPP"
+  - trigger: '\\PPP'
     replacement: "\\P"
     description: "P"
     target_platforms: [obsidian]
@@ -2271,7 +2263,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: "(NP|coNP|SAT|TIME|NTIME|SPACE|NSPACE)"
+  - trigger: '(NP|coNP|SAT|TIME|NTIME|SPACE|NSPACE)'
     replacement: "\\[[0]]"
     description: "Complexity class"
     target_platforms: [obsidian]
@@ -2280,7 +2272,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "3SAT"
+  - trigger: '3SAT'
     replacement: "\\THREESAT"
     description: "3SAT"
     target_platforms: [obsidian]
@@ -2290,7 +2282,7 @@ snippets:
 
 # Obsidian-only utilities
 
-  - trigger: "tayl"
+  - trigger: 'tayl'
     replacement: "${0:f}(${1:x} + ${2:h}) = ${0:f}(${1:x}) + ${0:f}'(${1:x})${2:h} + ${0:f}''(${1:x}) \\frac{${2:h}^{2}}{2!} + \\ldots$3"
     description: "Taylor expansion"
     target_platforms: [obsidian]
@@ -2298,7 +2290,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: "tikzcd"
+  - trigger: 'tikzcd'
     replacement: "```tikz\n\\usepackage{tikz-cd,amsmath,amssymb}\n\n\\usetikzlibrary{calc}\n\\usetikzlibrary{decorations.pathmorphing}\n\\tikzset{curve/.style={settings={#1},to path={(\\tikztostart)\n    .. controls ($(\\tikztostart)!\\pv{pos}!(\\tikztotarget)!\\pv{height}!270:(\\tikztotarget)$)\n    and ($(\\tikztostart)!1-\\pv{pos}!(\\tikztotarget)!\\pv{height}!270:(\\tikztotarget)$)\n    .. (\\tikztotarget)\\tikztonodes}},\n    settings/.code={\\tikzset{quiver/.cd,#1}\n        \\def\\pv##1{\\pgfkeysvalueof{/tikz/quiver/##1}}},\n    quiver/.cd,pos/.initial=0.35,height/.initial=0}\n\\tikzset{tail reversed/.code={\\pgfsetarrowsstart{tikzcd to}}}\n\\tikzset{2tail/.code={\\pgfsetarrowsstart{Implies[reversed]}}}\n\\tikzset{2tail reversed/.code={\\pgfsetarrowsstart{Implies}}}\n\\tikzset{no body/.style={/tikz/dash pattern=on 0 off 1mm}}\n\n\\begin{document}\n$0\n\\end{document}\n```"
     description: "tikzcd"
     target_platforms: [obsidian]

@@ -124,9 +124,8 @@ def build_latex_snippets(snippets, variables, verbatim_snippets, output_path):
         for var, val in variables.items():
             trigger = trigger.replace(f"{{{{{var}}}}}", val)
         
-        # for hsnips, `\` is a special character in the body and trigger
-        trigger = trigger.replace('\\', '\\\\')
         replacement = final_snippet['replacement']
+        # for hsnips, `\` is a special character in the body
         replacement = replacement.replace('\\', '\\\\')
 
         description = final_snippet.get('description', '')
