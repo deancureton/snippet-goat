@@ -28,7 +28,7 @@ def build_obsidian_snippets(snippets, verbatim_snippets, output_path):
 
         # build options string
         opts_str = ""
-        if options.get('regex'): opts_str += 'r'
+        # if options.get('regex'): opts_str += 'r'
         if options.get('math'): opts_str += 'm'
         if options.get('inline_math'): opts_str += 'n'
         if options.get('display_math'): opts_str += 'M'
@@ -47,14 +47,14 @@ def build_obsidian_snippets(snippets, verbatim_snippets, output_path):
     # generate the file content
     output_lines = []
     for s in obsidian_snippets_data:
-        # json.dumps for safe string formatting
-        trigger_str = json.dumps(s['trigger'])
+        # json.dumps for safe string formatting (except for regex trigger)
+        trigger_str = s['trigger']
         replacement_str = json.dumps(s['replacement'])
         options_str = json.dumps(s['options_str'])
         description_str = json.dumps(s.get('description', ''))
 
         line_parts = [
-            f"trigger: {trigger_str}",
+            f"trigger: /{trigger_str}/",
             f"replacement: {replacement_str}",
             f"options: {options_str}",
             f"description: {description_str}"

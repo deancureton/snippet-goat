@@ -6,7 +6,7 @@
 # variables: <object> (Optional) A key-value store for variables that can be referenced in triggers and replacements using {{variable_name}}. The build script will substitute these variables. For Obsidian, it can substitute them with Obsidian's native `${VAR}` format.
 # 
 # snippets:
-#   - trigger: <string|regex> The text that activates the snippet. In single quotes to prevent escape characters.
+#   - trigger: <regex> The text that activates the snippet. In single quotes to prevent escape characters.
 #     replacement: <string|javascript> The content to be inserted. In double quotes to allow for escape characters.
 #       - For simple text, just provide the string. Use $1, $2 for tab stops.
 #       - For dynamic/scripted snippets, provide the JavaScript code block.
@@ -16,7 +16,6 @@
 #       If omitted, the snippet will be generated for all platforms.
 #     priority: <number> (Optional) (Default: 0) The priority of the snippet. Higher priority snippets triggered first.
 #     options:
-#       regex: <boolean> (Default: false) Whether the trigger is a regular expression. Obsidian only (since all vscode snippet triggers are regex).
 #       math: <boolean> (Default: false) Snippet is active only in math contexts.
 #       inline_math: <boolean> (Default: false) Snippet is active only in inline math contexts. Obsidian only.
 #       display_math: <boolean> (Default: false) Snippet is active only in display math contexts. Obsidian only.
@@ -104,7 +103,6 @@ snippets:
     description: "Matrix environment"
     target_platforms: [obsidian]
     options:
-      regex: true
       display_math: true
       auto: true
 
@@ -121,7 +119,6 @@ snippets:
     description: "Matrix environment"
     target_platforms: [obsidian]
     options:
-      regex: true
       inline_math: true
       auto: true
 
@@ -141,7 +138,7 @@ snippets:
       math: true
       auto: true
       
-  - trigger: 'align*'
+  - trigger: 'align\*'
     replacement: "\\begin{align*}\n$0\n\\end{align*}"
     description: "Align environment"
     target_platforms: [obsidian]
@@ -610,7 +607,6 @@ snippets:
     replacement: "[[0]]\\[[1]]"
     description: "Trigonometric function"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -621,7 +617,6 @@ snippets:
     replacement: "\\[[0]] [[1]]"
     description: "Space after trigonometric functions"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -632,7 +627,6 @@ snippets:
     replacement: "\\[[0]] [[1]]"
     description: "Space after hyperbolic trigonometric functions"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -643,7 +637,6 @@ snippets:
     replacement: "\\[[0]] [[1]]"
     description: "Inequality"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -656,7 +649,6 @@ snippets:
     replacement: "\\[[0]]"
     description: "Common mathematical letter symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -702,7 +694,6 @@ snippets:
     replacement: "\\ell"
     description: "ell"
     options:
-      regex: true
       math: true
       auto: true
 
@@ -710,7 +701,6 @@ snippets:
     replacement: "\\mathbb{[[0]]}"
     description: "Boldface"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -719,18 +709,9 @@ snippets:
 
 # Common mathematical symbols
 
-  - trigger: '..'
-    replacement: "\\ldots"
-    description: "ellipsis"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-
   - trigger: '\.\.'
     replacement: "\\ldots"
     description: "ellipsis"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -758,18 +739,9 @@ snippets:
       math: true
       auto: true
 
-  - trigger: '+-'
-    replacement: "\\pm"
-    description: "plus or minus"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-
   - trigger: '\+-'
     replacement: "\\pm"
     description: "plus or minus"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -777,15 +749,6 @@ snippets:
   - trigger: '-\+'
     replacement: "\\mp"
     description: "minus or plus"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-
-  - trigger: '-\+'
-    replacement: "\\mp"
-    description: "minus or plus"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -794,7 +757,6 @@ snippets:
     replacement: "[[0]]\\pm"
     description: "plus or minus"
     options:
-      regex: true
       math: true
     platforms:
       vscode:
@@ -804,7 +766,6 @@ snippets:
     replacement: "[[0]]\\mp"
     description: "minus or plus"
     options:
-      regex: true
       math: true
     platforms:
       vscode:
@@ -873,18 +834,9 @@ snippets:
         options:
           math: true
   
-  - trigger: '||'
-    replacement: "\\mid"
-    description: "mid"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-  
   - trigger: '\|\|'
     replacement: "\\mid"
     description: "mid"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -1023,18 +975,9 @@ snippets:
       math: true
       auto: true
 
-  - trigger: '//'
-    replacement: "\\frac{$1}{$2}$3"
-    description: "fraction"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-
   - trigger: '\/\/'
     replacement: "\\frac{$1}{$2}$3"
     description: "fraction"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -1050,22 +993,12 @@ snippets:
     replacement: "\\nabla"
     description: "nabla"
     options:
-      regex: true
-      math: true
-      auto: true
-
-  - trigger: '**'
-    replacement: "\\cdot"
-    description: "dot"
-    target_platforms: [obsidian]
-    options:
       math: true
       auto: true
 
   - trigger: '\*\*'
     replacement: "\\cdot"
     description: "dot"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -1111,19 +1044,10 @@ snippets:
     options:
       math: true
       auto: true
-
-  - trigger: 'o+'
-    replacement: "\\oplus"
-    description: "oplus"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
   
   - trigger: 'o\+'
     replacement: "\\oplus"
     description: "oplus"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -1214,7 +1138,6 @@ snippets:
     replacement: "[[0]]_{[[1]]}"
     description: "Auto letter subscript"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1225,7 +1148,6 @@ snippets:
     replacement: "[[0]]_{[[1]]}"
     description: "Auto letter subscript"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1236,7 +1158,6 @@ snippets:
     replacement: "hat{[[0]]}_{[[1]]}"
     description: "Auto letter subscript"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1247,7 +1168,6 @@ snippets:
     replacement: "\\mathbf{[[0]]}_{[[1]]}"
     description: "Auto letter subscript"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1258,7 +1178,6 @@ snippets:
     replacement: "vec{[[0]]}_{[[1]]}"
     description: "Auto letter subscript"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1288,7 +1207,7 @@ snippets:
 
 # Brackets
 
-  - trigger: '('
+  - trigger: '\('
     replacement: "($1)$2"
     description: "Parentheses"
     target_platforms: [obsidian]
@@ -1296,7 +1215,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: '['
+  - trigger: '\['
     replacement: "[$1]$2"
     description: "Square brackets"
     target_platforms: [obsidian]
@@ -1312,7 +1231,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: 'lr('
+  - trigger: 'lr\('
     replacement: "\\left( $1 \\right)$2"
     description: "Left and right parentheses"
     target_platforms: [obsidian]
@@ -1320,7 +1239,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: 'lr['
+  - trigger: 'lr\['
     replacement: "\\left[ $1 \\right]$2"
     description: "Left and right square brackets"
     target_platforms: [obsidian]
@@ -1336,18 +1255,9 @@ snippets:
       math: true
       auto: true
   
-  - trigger: 'lr|'
-    replacement: "\\left| $1 \\right|$2"
-    description: "Left and right vertical bars"
-    target_platforms: [obsidian]
-    options:
-      math: true
-      auto: true
-  
   - trigger: 'lr\|'
     replacement: "\\left| $1 \\right|$2"
     description: "Left and right vertical bars"
-    target_platforms: [vscode]
     options:
       math: true
       auto: true
@@ -1359,7 +1269,7 @@ snippets:
       math: true
       auto: true
 
-  - trigger: '('
+  - trigger: '\('
     replacement: "(${VISUAL})"
     description: "Visual parentheses"
     target_platforms: [obsidian]
@@ -1367,7 +1277,7 @@ snippets:
       math: true
       auto: true
   
-  - trigger: '['
+  - trigger: '\['
     replacement: "[${VISUAL}]"
     description: "Visual square brackets"
     target_platforms: [obsidian]
@@ -1511,7 +1421,6 @@ snippets:
     description: "Fraktur"
     priority: 1
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1522,7 +1431,6 @@ snippets:
     replacement: "\\mathcal{[[0]]}"
     description: "Caligraphic"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1533,7 +1441,6 @@ snippets:
     replacement: "\\mathbf{[[0]]}"
     description: "Boldface"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1544,7 +1451,6 @@ snippets:
     replacement: "\\mathbf{[[0]]}"
     description: "Boldface"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1587,7 +1493,6 @@ snippets:
     replacement: "\\[[1]]{[[0]]}"
     description: "diacritic"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1598,7 +1503,6 @@ snippets:
     replacement: "\\dot{[[0]]}"
     description: "dot"
     options:
-      regex: true
       math: true
     platforms:
       vscode:
@@ -1608,7 +1512,6 @@ snippets:
     replacement: "\\underline{[[0]]}"
     description: "underline"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1619,7 +1522,6 @@ snippets:
     replacement: "\\overline{[[0]]}"
     description: "overline"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1652,7 +1554,6 @@ snippets:
     replacement: "\\frac{ \\partial [[0]] }{ \\partial [[1]] } "
     description: "Partial derivative"
     options:
-      regex: true
       math: true
     platforms:
       vscode:
@@ -1662,7 +1563,6 @@ snippets:
     replacement: "\\frac{ \\partial^{2} [[0]] }{ \\partial [[1]]^{2} } "
     description: "Second partial derivative"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1673,7 +1573,6 @@ snippets:
     replacement: "\\frac{ \\partial^{2} [[0]] }{ \\partial [[1]]^{2} } "
     description: "Second partial derivative"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1684,7 +1583,6 @@ snippets:
     replacement: "\\frac{ d[[0]] }{ d[[1]] } "
     description: "Derivative"
     options:
-      regex: true
       math: true
     platforms:
       vscode:
@@ -1694,7 +1592,6 @@ snippets:
     replacement: "\\frac{ d^{2}[[0]] }{ d[[1]]^{2} } "
     description: "Second derivative"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1821,7 +1718,6 @@ snippets:
     replacement: "\\mathbf{[[0]]}"
     description: "Unit vector (i, j, k)"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1832,7 +1728,6 @@ snippets:
     replacement: "\\hat{\\mathbf{[[0]]}}"
     description: "Unit vector (x, y, z)"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1887,7 +1782,6 @@ snippets:
     replacement: "\\braket{ [[0]] | $0 "
     description: "Convert bra into braket"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1898,7 +1792,6 @@ snippets:
     replacement: "\\braket{ [[0]] | $0"
     description: "Convert bra into braket"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1925,7 +1818,6 @@ snippets:
     replacement: "M_{\\odot}"
     description: "solar mass"
     options:
-      regex: true
       math: true
       auto: true
 
@@ -1963,7 +1855,6 @@ snippets:
     replacement: "[[0]]\\[[1]]"
     description: "Add backslash before greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1977,7 +1868,6 @@ snippets:
     description: "Insert space after greek letters and symbols"
     priority: 1
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -1990,7 +1880,6 @@ snippets:
     replacement: "\\[[0]]^{2}"
     description: "Superscript 2 after greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -2003,7 +1892,6 @@ snippets:
     replacement: "\\[[0]]^{3}"
     description: "Superscript 3 after greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -2016,7 +1904,6 @@ snippets:
     replacement: "\\[[0]]^{$0}$1"
     description: "Superscript arbitrary after greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -2029,7 +1916,6 @@ snippets:
     replacement: "\\[[1]]{\\[[0]]}"
     description: "Diacritic over greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -2042,7 +1928,6 @@ snippets:
     replacement: "\\dot{\\[[0]]}"
     description: "Diacritic over greek letters and symbols"
     options:
-      regex: true
       math: true
     platforms:
       obsidian:
@@ -2054,7 +1939,6 @@ snippets:
     replacement: "\\underline{\\[[0]]}"
     description: "Underline greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -2067,7 +1951,6 @@ snippets:
     replacement: "\\overline{\\[[0]]}"
     description: "Overline greek letters and symbols"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
@@ -2076,29 +1959,27 @@ snippets:
       vscode:
         replacement: "``rv = '\\overline{' + m[1] + '}'``"
 
-  - trigger: '\\({{GREEK}}),\\.'
+  - trigger: '\\({{GREEK}}),\.'
     replacement: "\\boldsymbol{\\[[0]]}"
     description: "Bold greek letter (comma dot)"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
       obsidian:
-        trigger: '\\(${GREEK}),\\.'
+        trigger: '\\(${GREEK}),\.'
       vscode:
         replacement: "``rv = '\\boldsymbol{' + m[1] + '}'``"
 
-  - trigger: '\\({{GREEK}})\\.,'
+  - trigger: '\\({{GREEK}})\.,'
     replacement: "\\boldsymbol{\\[[0]]}"
     description: "Bold greek letter (dot comma)"
     options:
-      regex: true
       math: true
       auto: true
     platforms:
       obsidian:
-        trigger: '\\(${GREEK})\\.,'
+        trigger: '\\(${GREEK})\.,'
       vscode:
         replacement: "``rv = '\\boldsymbol{' + m[1] + '}'``"
 
@@ -2268,7 +2149,6 @@ snippets:
     description: "Complexity class"
     target_platforms: [obsidian]
     options:
-      regex: true
       math: true
       auto: true
 
@@ -2298,7 +2178,7 @@ snippets:
 verbatim_snippets:
   obsidian:
     - |
-      {trigger: /iden(\d)/, replacement: (match) => {
+      { trigger: /iden(\d)/, replacement: (match) => {
               const n = match[1];
       
               let arr = [];
